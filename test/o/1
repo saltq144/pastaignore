@@ -1,0 +1,5 @@
+./lib2.o
+./lib1.o
+./lib/lib2.o
+./lib/lib1.o
+./important/important.o
