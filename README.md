@@ -1,3 +1,4 @@
+![](https://img.shields.io/static/v1?label=tests&message=passing&color=success) ![](https://img.shields.io/static/v1?label=version&message=1.0&color=informational) ![](https://img.shields.io/static/v1?label=build&message=passing&color=success) ![](https://shields.io/github/directory-file-count/saltq144/pastaignore) ![](https://img.shields.io/github/languages/code-size/saltq144/pastaignore) ![](https://img.shields.io/github/license/saltq144/pastaignore) ![](https://img.shields.io/github/last-commit/saltq144/pastaignore)
 # Getting started.
 ## Building
 Requirements: ```g++ (c++20)```, ```make```
