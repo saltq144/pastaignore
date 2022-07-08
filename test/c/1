@@ -1,51 +1,81 @@
 GLOBAL POOL OF FILES:
 
 
+./libother
+./libother/other1.o
+./libother/other2.o
+./%%.orange
 ./i
 ./i/1.pastaignore
+./i/2.pastaignore
 ./lib2.o
 ./lib1.o
 ./lib
 ./lib/lib2.o
 ./lib/lib1.o
+./dd.orange
 ./e
 ./e/c
+./e/c/2
 ./e/c/1
 ./e/o
+./e/o/2
 ./e/o/1
+./dd.apple
 ./important
 ./important/important.o
 ./c
+./c/2
 ./c/1
 ./o
+./o/2
 ./o/1
+./%%.apple
 ./test.sh
+./libcommon
+./libcommon/common2.o
+./libcommon/common1.o
 
 
 PARSED LINE OPERATIONS:
 
 
+File didn't pass first regex. file: ./libother regex: .*\.o
+File didn't pass first regex. file: ./%%.orange regex: .*\.o
 File didn't pass first regex. file: ./i regex: .*\.o
 File didn't pass first regex. file: ./i/1.pastaignore regex: .*\.o
+File didn't pass first regex. file: ./i/2.pastaignore regex: .*\.o
 File didn't pass first regex. file: ./lib regex: .*\.o
+File didn't pass first regex. file: ./dd.orange regex: .*\.o
 File didn't pass first regex. file: ./e regex: .*\.o
 File didn't pass first regex. file: ./e/c regex: .*\.o
+File didn't pass first regex. file: ./e/c/2 regex: .*\.o
 File didn't pass first regex. file: ./e/c/1 regex: .*\.o
 File didn't pass first regex. file: ./e/o regex: .*\.o
+File didn't pass first regex. file: ./e/o/2 regex: .*\.o
 File didn't pass first regex. file: ./e/o/1 regex: .*\.o
+File didn't pass first regex. file: ./dd.apple regex: .*\.o
 File didn't pass first regex. file: ./important regex: .*\.o
+File didn't pass second regex. file: ./important/important.o regex: \.\/important.*\.o
 File didn't pass first regex. file: ./c regex: .*\.o
+File didn't pass first regex. file: ./c/2 regex: .*\.o
 File didn't pass first regex. file: ./c/1 regex: .*\.o
 File didn't pass first regex. file: ./o regex: .*\.o
+File didn't pass first regex. file: ./o/2 regex: .*\.o
 File didn't pass first regex. file: ./o/1 regex: .*\.o
+File didn't pass first regex. file: ./%%.apple regex: .*\.o
 File didn't pass first regex. file: ./test.sh regex: .*\.o
+File didn't pass first regex. file: ./libcommon regex: .*\.o
 
 
 FINALIZED FILE LIST:
 
 
+./libother/other1.o
+./libother/other2.o
 ./lib2.o
 ./lib1.o
 ./lib/lib2.o
 ./lib/lib1.o
-./important/important.o
+./libcommon/common2.o
+./libcommon/common1.o

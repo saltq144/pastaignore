@@ -70,14 +70,20 @@ int main(int argc, char* argv[]) {
 			std::cout << "PARSED LINE OPERATIONS:\n\n\n";
 		}
 		for(const auto& file : gPool) {
-			if(std::regex_match(file, std::regex(parsed_line[0]))) {
-				if (parsed_line[1] == "not") {
+			if (parsed_line[1] == "not") {
+				if(std::regex_match(file, std::regex(parsed_line[0]))) {
 					if (!(std::regex_match(file, std::regex(parsed_line[2])))) {
 						fList.push_back(file);
 					} else if (verboseFlag) { std::cout << "File didn't pass second regex. file: " << file << " regex: " << parsed_line[2] << "\n"; }
-				} else if (verboseFlag) { std::cout << "Unsupported operand: " << parsed_line[1] << "\n"; }
-			} else if (verboseFlag) { std::cout << "File didn't pass first regex. file: " << file << " regex: " << parsed_line[0] << "\n"; }
-		
+				} else if (verboseFlag) { std::cout << "File didn't pass first regex. file: " << file << " regex: " << parsed_line[0] << "\n"; }
+			} else if (parsed_line[1] == "and") {
+				if(std::regex_match(file, std::regex(parsed_line[0]))) {
+					if (std::regex_match(file, std::regex(parsed_line[2]))) {
+						fList.push_back(file);
+					} else if (verboseFlag) { std::cout << "File didn't pass second regex. file: " << file << " regex: " << parsed_line[2] << "\n"; }
+				} else if (verboseFlag) { std::cout << "File didn't pass first regex. file: " << file << " regex: " << parsed_line[0] << "\n"; }
+			}
+			else if (verboseFlag) { std::cout << "Unsupported operand: " << parsed_line[1] << "\n"; }
 		}
 	}
 	if (verboseFlag) {
@@ -126,6 +132,12 @@ std::vector<std::string> parseLine(std::string input) {
 	for (int i = j; i < input.size(); i++) {
 		if ((input[i] != ' ') && (input[i] != '\n') && (input[i] != '\r') && (input[i] != '\"')) midToken += input[i];
 		if (midToken == "not") { ret.push_back(midToken); j = i; break;}
+		if (midToken == "and") { ret.push_back(midToken); j = i; break;}
+		if (midToken == "or")  { ret.push_back(midToken); j = i; break;}
+		if (midToken == "xor") { ret.push_back(midToken); j = i; break;}
+		if (midToken == "nand"){ ret.push_back(midToken); j = i; break;}
+		if (midToken == "nor") { ret.push_back(midToken); j = i; break;}
+		if (midToken == "xnor"){ ret.push_back(midToken); j = i; break;}
 		j = i;
 	}
 	startIndex = j;

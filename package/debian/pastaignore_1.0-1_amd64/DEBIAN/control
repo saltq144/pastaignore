@@ -1,8 +1,11 @@
 Package: pastaignore
 Version: 1.0
-Architecture: amd64
-Maintainer: saltq <support@creationship27>
-Priority: optional
 Section: devel
+Priority: optional
+Architecture: amd64
+Essential: no
+Installed-Size: xxxxx
+Maintainer: saltq <support@creationship27>
 Description: a tool to make gitignores easier
  it also supports file formats that are a list of files!
+Homepage: https://github.com/saltq144/pastaignore
