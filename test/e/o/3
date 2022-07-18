@@ -1,0 +1,8 @@
+./lib/lib1.o
+./lib/lib2.o
+./lib1.o
+./lib2.o
+./libcommon/common1.o
+./libcommon/common2.o
+./libother/other1.o
+./libother/other2.o

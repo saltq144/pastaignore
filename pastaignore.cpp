@@ -4,6 +4,9 @@
 #include <fstream>
 #include <regex>
 #include <vector>
+#include <chrono>
+#include <thread>
+
 
 #include "./argparse/include/argparse/argparse.hpp"
 
@@ -12,6 +15,7 @@ using recursive_directory_iterator = std::filesystem::recursive_directory_iterat
 std::vector<std::string>parseLine(std::string input);
 
 int main(int argc, char* argv[]) {
+	bool barFlag = true;
 	argparse::ArgumentParser program("pastaignore", "dev");
 	program.add_argument("-i", "--input")
 		.required()
@@ -23,6 +27,10 @@ int main(int argc, char* argv[]) {
 		.help("increase output verbosity")
 		.default_value(false)
 		.implicit_value(true);
+	program.add_argument("-rd", "--remove-duplicates")
+		.help("removes duplicate files in output")
+		.default_value(false)
+		.implicit_value(true);
 	try {
 		program.parse_args(argc, argv);
 	} catch (const std::runtime_error& err) {
@@ -31,9 +39,10 @@ int main(int argc, char* argv[]) {
 		std::exit(1);
 	}
 
-	auto inputFile   = program.get<std::string>("-i");
-	auto outputFile  = program.get<std::string>("-o");
-	auto verboseFlag = program.get<bool>(      "-vb");
+	auto inputFile        = program.get<std::string>("-i");
+	auto outputFile       = program.get<std::string>("-o");
+	auto verboseFlag      = program.get<bool>(      "-vb");
+	auto removeDuplicates = program.get<bool>(      "-rd");
 
 	std::string line = "";
 	std::fstream fInput(inputFile);
@@ -43,8 +52,10 @@ int main(int argc, char* argv[]) {
 	std::vector<std::string> iPool;
 	std::vector<std::string> fList;
 
-        for (const auto& dirEntry : recursive_directory_iterator("."))
+        for (const auto& dirEntry : recursive_directory_iterator(".")) {
 		gPool.push_back(dirEntry.path().string());
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+	}
 
         if (verboseFlag) {
 		std::cout << "GLOBAL POOL OF FILES:\n\n\n";
@@ -82,8 +93,11 @@ int main(int argc, char* argv[]) {
 						fList.push_back(file);
 					} else if (verboseFlag) { std::cout << "File didn't pass second regex. file: " << file << " regex: " << parsed_line[2] << "\n"; }
 				} else if (verboseFlag) { std::cout << "File didn't pass first regex. file: " << file << " regex: " << parsed_line[0] << "\n"; }
-			}
-			else if (verboseFlag) { std::cout << "Unsupported operand: " << parsed_line[1] << "\n"; }
+			} else if (parsed_line[1] == "or") {
+				if (std::regex_match(file, std::regex(parsed_line[0])) || std::regex_match(file, std::regex(parsed_line[2]))) {
+					fList.push_back(file);
+				} else if (verboseFlag) { std::cout << "File didn't pass either regex 1: " << parsed_line[0] << " 2: " << parsed_line[2]; }
+			} else if (verboseFlag) { std::cout << "Unsupported operand: " << parsed_line[1] << "\n"; }
 		}
 	}
 	if (verboseFlag) {
@@ -91,6 +105,10 @@ int main(int argc, char* argv[]) {
 		for (const auto& file : fList) {
 			std::cout << file << "\n";
 		}
+	}
+	if (removeDuplicates) {
+		sort(fList.begin(), fList.end());
+		fList.erase(unique(fList.begin(), fList.end()), fList.end());
 	}
 	std::ofstream fOutput (outputFile);
 	if (fOutput.is_open()) {

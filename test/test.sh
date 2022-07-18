@@ -38,3 +38,16 @@ else
         echo "\033[41;30mFAIL 2.c\033[0m"
 fi
 
+../pastaignore -i i/3.pastaignore -o ./o/3 -rd > ./c/3
+
+if cmp --silent ./e/o/3 ./o/3; then
+	echo "\033[42;30mPASS 3.o"
+else
+	echo "\033[41;30mFAIL 3.o"
+fi
+
+if cmp --silent ./e/c/3 ./c/3; then
+	echo "\033[42;30mPASS 3.c"
+else
+	echo "\033[42;30mFAIL 3.c"
+fi

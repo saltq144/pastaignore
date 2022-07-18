@@ -1,1 +1,4 @@
 
+[submodule "indicators"]
+	path = indicators
+	url = https://github.com/p-ranav/indicators
